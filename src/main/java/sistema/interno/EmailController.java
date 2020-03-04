@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class EmailController {
 	
 	@Autowired
-	GmailEmailSender emailSender;
+	GmailEmailService emailSender;
 	
 	private final String SELF_EMAIL = "misbuenoslibritos@gmail.com";
 	
