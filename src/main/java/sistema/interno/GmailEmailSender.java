@@ -55,11 +55,11 @@ public class GmailEmailSender {
 	   
 		Session session = Session.getInstance(props, new javax.mail.Authenticator() {
 			protected PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication("misbuenoslibritos@gmail.com", "distribuidos123");
+				return new PasswordAuthentication("user", "pass");
 			}
 		});
 		Message msg = new MimeMessage(session);
-		msg.setFrom(new InternetAddress("misbuenoslibritos@gmail.com", false));
+		msg.setFrom(new InternetAddress("user", false));
 	
 		msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailTo));
 		msg.setSubject("Email Test");
