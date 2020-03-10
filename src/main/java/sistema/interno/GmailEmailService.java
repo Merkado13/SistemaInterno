@@ -19,7 +19,6 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -42,6 +41,7 @@ public class GmailEmailService {
 	private Properties props;
 	private Session session;
 	private final String CREDENTIALS_DIR = "src/main/resources/static/credentials.txt";
+	
 	@PostConstruct
 	public void init() {
 		props = getProperties();
@@ -90,7 +90,7 @@ public class GmailEmailService {
 		return session;
 	}
 	
-	public void sendEmail(String emailTo) throws AddressException, MessagingException, IOException {
+	public void sendEmail(String emailTo, String emailContent) throws AddressException, MessagingException, IOException {
 			
 		Message msg = new MimeMessage(session);
 		msg.setFrom(new InternetAddress(credentials.emailUser, false));
@@ -101,7 +101,7 @@ public class GmailEmailService {
 		msg.setSentDate(new Date());
 	
 		MimeBodyPart messageBodyPart = new MimeBodyPart();
-		messageBodyPart.setContent("Esto es un email de prueba :3", "text/html");
+		messageBodyPart.setContent(emailContent, "text/html");
 	
 		Multipart multipart = new MimeMultipart();
 		multipart.addBodyPart(messageBodyPart);
