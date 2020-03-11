@@ -40,10 +40,10 @@ public class EmailController {
 	}
 	
 	@RequestMapping(value = "/welcomeemail")
-	public boolean welcomeEmail(@RequestBody String email) throws AddressException, MessagingException, IOException {
+	public String welcomeEmail(@RequestBody String email) throws AddressException, MessagingException, IOException {
 		
 	   emailSender.sendEmail(email, welcome);
-	   return true;
+	   return "Email sent successfully";
 	}
 	
 }
