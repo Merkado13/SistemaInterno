@@ -24,7 +24,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class GmailEmailService {
 
-	
 	private class Credentials{
 		public String emailUser;
 		public String password;
@@ -90,14 +89,14 @@ public class GmailEmailService {
 		return session;
 	}
 	
-	public void sendEmail(String emailTo, String emailContent) throws AddressException, MessagingException, IOException {
+	public void sendEmail(String emailTo,String subject, String emailContent) throws AddressException, MessagingException, IOException {
 			
 		Message msg = new MimeMessage(session);
 		msg.setFrom(new InternetAddress(credentials.emailUser, false));
 	
 		msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailTo));
-		msg.setSubject("Email Test");
-		msg.setContent("Email Test", "text/html");
+		msg.setSubject(subject);
+		msg.setContent(subject, "text/html");
 		msg.setSentDate(new Date());
 	
 		MimeBodyPart messageBodyPart = new MimeBodyPart();
@@ -108,5 +107,10 @@ public class GmailEmailService {
 		msg.setContent(multipart);
 		   
 		Transport.send(msg);   
+	}
+	
+	public String getNewBookEmailBodyMessage(String authorName, String title) {
+		return authorName + " acaba de publicar su nuevo libro: " + title + 
+				"\n" ;
 	}
 }
