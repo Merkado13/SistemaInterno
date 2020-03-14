@@ -1,8 +1,10 @@
 package sistema.interno;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import javax.mail.Message;
@@ -16,8 +18,10 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -38,6 +42,7 @@ public class EmailController {
 	public static final String WELCOME_SUBJECT = "Welcome";
 	public static final String NEW_BOOK_SUBJECT = "Nueva Publicacion!";
 	
+	
 	@RequestMapping(value = "/sendemail")
 	public String sendEmail() throws AddressException, MessagingException, IOException {
 	   emailSender.sendEmail(SELF_EMAIL, TEST_SUBJECT, prueba);
@@ -51,9 +56,23 @@ public class EmailController {
 	   return "Email sent successfully";
 	}
 	
-	@RequestMapping(value = "/newbookemail")
-	public String welcomeEmail(@RequestBody NewBookEmailData emailData) throws AddressException, MessagingException, IOException {
+	
+	@RequestMapping(value = "/newbookemail")	
+	public String welcomeEmail(@RequestBody Map<String, String> emailData) throws AddressException, MessagingException, IOException {
+		String bodyMessage = emailSender.getNewBookEmailBodyMessage(emailData.get("authorName"), emailData.get("title"));
 		
+		String [] userEmails = emailData.get("userEmails").split(";");
+		for(String email : userEmails) {
+			System.out.println("Enviando email a: "+ email);
+			emailSender.sendEmail(email, NEW_BOOK_SUBJECT, bodyMessage);
+		}
+		
+		return "Email sent successfully";
+	}
+	
+	/*@RequestMapping(value = "/newbookemail")
+	public String welcomeEmail(@RequestBody NewBookEmailData emailData) throws AddressException, MessagingException, IOException {
+		System.out.println("Hola soy el servidor");
 		String bodyMessage = emailSender.getNewBookEmailBodyMessage(emailData.getAuthorName(), emailData.getTitle());
 		
 		List<String> userEmails = emailData.getUserEmails();
@@ -62,6 +81,6 @@ public class EmailController {
 		}
 		
 		return "Email sent successfully";
-	}
+	}*/
 	
 }

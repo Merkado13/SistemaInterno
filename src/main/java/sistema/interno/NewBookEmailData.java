@@ -1,8 +1,9 @@
 package sistema.interno;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class NewBookEmailData {
+public class NewBookEmailData implements Serializable{
 
 	private String authorName;
 	private String title;
