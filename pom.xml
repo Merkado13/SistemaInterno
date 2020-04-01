@@ -4,6 +4,7 @@
   <artifactId>sistema.interno</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <name>SistemaInterno</name>
+  <packaging>jar</packaging>
   
   <parent>
 		<groupId>org.springframework.boot</groupId>
@@ -23,6 +24,35 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+		
+		<!-- send email -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
+		
 	</dependencies>
+  
+  <build>
+		<plugins>
+		<plugin>
+	    <groupId>org.springframework.boot</groupId>
+	    <artifactId>spring-boot-maven-plugin</artifactId>
+	    <executions>
+	        <execution>
+	            <goals>
+	                <goal>repackage</goal>
+	            </goals>
+	            <configuration>
+	                	<classifier>spring-boot</classifier>
+	                	<mainClass>
+	                  sistema.interno.Application
+	                	</mainClass>
+	            	</configuration>
+	        	</execution>
+	    	</executions>
+		</plugin>
+		</plugins>
+	</build>
   
 </project>
