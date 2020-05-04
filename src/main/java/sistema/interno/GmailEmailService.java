@@ -44,7 +44,7 @@ public class GmailEmailService {
 	@PostConstruct
 	public void init() {
 		props = getProperties();
-		credentials = getCredentialsFromFile(CREDENTIALS_DIR);
+		//credentials = getCredentialsFromFile(CREDENTIALS_DIR);
 		session = getSession();
 	}
 	
@@ -82,7 +82,7 @@ public class GmailEmailService {
 	private Session getSession() {
 		Session session = Session.getInstance(props, new javax.mail.Authenticator() {
 			protected PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication(credentials.emailUser, credentials.password);
+				return new PasswordAuthentication("misbuenoslibritos2@gmail.com", "distribuidos123");
 			}
 		});
 		
@@ -92,7 +92,7 @@ public class GmailEmailService {
 	public void sendEmail(String emailTo,String subject, String emailContent) throws AddressException, MessagingException, IOException {
 			
 		Message msg = new MimeMessage(session);
-		msg.setFrom(new InternetAddress(credentials.emailUser, false));
+		msg.setFrom(new InternetAddress("misbuenoslibritos2@gmail.com", false));
 	
 		msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailTo));
 		msg.setSubject(subject);

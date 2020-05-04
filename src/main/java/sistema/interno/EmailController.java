@@ -36,7 +36,7 @@ public class EmailController {
 	@Autowired
 	GmailEmailService emailSender;
 	
-	private final String SELF_EMAIL = "misbuenoslibritos@gmail.com";
+	private final String SELF_EMAIL = "misbuenoslibritos2@gmail.com";
 	private final String prueba = "Esto es un email de prueba :3";
 	private final String welcome = "Bienvenid@ a 'Mis buenos libritos', una web donde podrás organizar tus lecturas y encontrar tu próximo libro preferido\n";
 	
